@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "license": "MIT",
   "bin": {
-    "envdir": "./dist/envdir.js",
-    "svc": "./dist/svc.js",
-    "svstat": "./dist/svstat.js",
-    "svwait": "./dist/svwait.js",
-    "supervise": "./dist/supervise.js",
-    "svscan": "./dist/svscan.js"
+    "envdir": "dist/envdir.js",
+    "svc": "dist/svc.js",
+    "svstat": "dist/svstat.js",
+    "svwait": "dist/svwait.js",
+    "supervise": "dist/supervise.js",
+    "svscan": "dist/svscan.js"
   },
   "repository": {
     "type": "git",
