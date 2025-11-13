@@ -8,20 +8,18 @@ let skipIndex = 1;
 if(process.argv[0].includes("node")){
     skipIndex = 2;
 }
-// plural of s
-// .join(" ").split(/ +/) DOES NOT cancel out I swear
-const ss = process.argv.slice(skipIndex).join(" ").split(" ").filter(s => s.length > 0);
-const d = ss[0];
-if(!d){
-    console.error("usage: supervise d");
+const d = process.argv[skipIndex++];
+const child = process.argv[skipIndex++];
+const child_argv = process.argv.slice(skipIndex);
+if(d === undefined || child === undefined){
+    console.error("usage: envdir d child");
     process.exit(1);
 }
-const child = ss.slice(1).join(" ");
 
 fs.readdirSync(d).forEach(envName => {
     process.env[envName] = fs.readFileSync(path.join(d, envName), { encoding: "utf-8" });
 });
-const daemon = child_process.spawn(child, {
+const daemon = child_process.spawn(child, child_argv, {
     stdio: ["inherit", "inherit", "inherit"],
     windowsHide: true
 });
