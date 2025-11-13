@@ -8,10 +8,7 @@ let skipIndex = 1;
 if(process.argv[0].includes("node")){
     skipIndex = 2;
 }
-// plural of s
-// .join(" ").split(/ +/) DOES NOT cancel out I swear
-const ss = process.argv.slice(skipIndex).join(" ").split(" ").filter(s => s.length > 0);
-let s = ss[0];
+let s = process.argv.slice(skipIndex).join(" ");
 if(!s){
     console.error("usage: supervise s");
     process.exit(1);
@@ -55,13 +52,12 @@ if(!fs.existsSync("down")){
     updateStatus();
 }
 
+const _wait = (ms: number) => new Promise(r => setTimeout(r,ms));
 function isDown(){
     if(daemon === undefined)
         return true;
     return daemon.pid === undefined || daemon.killed || daemon.exitCode !== null;
 }
-
-const _wait = (ms: number) => new Promise(r => setTimeout(r,ms));
 function updateStatus(){
     if(isDown()){
         fs.writeFileSync("status", `down ${performance.now() - startTime} -1 ${auto_start ? "up" : "down"}`, {
@@ -72,7 +68,6 @@ function updateStatus(){
     fs.writeFileSync("status", `up ${Date.now()} ${daemon!.pid} ${auto_start ? "up" : "down"}`, {
         mode: common.DEFAULT_STATUS_MODE
     });
-    
 }
 function startDaemon(){
     if(!isDown())
@@ -95,7 +90,9 @@ function startDaemon(){
             updateStatus();
         }
     }
-    daemon.once("exit", handler);
+    daemon
+        .once("exit", handler)
+        .once("error", handler);
 }
 function killDaemon(signal: NodeJS.Signals = "SIGTERM"): Promise<void>{
     return new Promise(r => {
@@ -115,7 +112,6 @@ async function exit_supervisor(): Promise<never>{
     controlWatch.unref();
     process.exit(0);
 }
-
 // supported commands: xukdits
 function processCommand(command: string){
     switch(command){
