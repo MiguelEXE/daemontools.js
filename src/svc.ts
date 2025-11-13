@@ -8,7 +8,6 @@ const parser = new getopt.BasicParser("xukdits", process.argv);
 const ss: string[] = [];
 let commands = ""; // what to send
 let curParsedOption: Option | undefined;
-
 while ((curParsedOption = parser.getopt()) !== undefined){
     commands += curParsedOption.option;
 }
