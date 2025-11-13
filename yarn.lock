@@ -183,6 +183,11 @@ get-tsconfig@^4.7.5:
   dependencies:
     resolve-pkg-maps "^1.0.0"
 
+posix-getopt@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/posix-getopt/-/posix-getopt-1.2.1.tgz#bc50e67335eb5e4be8d937210b95a211bc26f083"
+  integrity sha512-BbGTiH8MOWAuc6h5yITkSn9k3HP4+QOCV9t6I5F62OrH7zqTHRo08QNsgELRreTBxcvRhbSpMoUnAx77Dz4yUA==
+
 resolve-pkg-maps@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/resolve-pkg-maps/-/resolve-pkg-maps-1.0.0.tgz#616b3dc2c57056b5588c31cdf4b3d64db133720f"

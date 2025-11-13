@@ -2,36 +2,25 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as common from "./common.js";
+import * as getopt from "posix-getopt";
 
-let options = ""; // what to send
-let skipIndex = 1;
-if(process.argv[0].includes("node")){
-    skipIndex = 2;
+const parser = new getopt.BasicParser("xukdits", process.argv);
+const ss: string[] = [];
+let commands = ""; // what to send
+let curParsedOption: Option | undefined;
+
+while ((curParsedOption = parser.getopt()) !== undefined){
+    commands += curParsedOption.option;
 }
-const unifiedArgv = process.argv.slice(skipIndex).join(" ");
-const optionsArgvStart = unifiedArgv.indexOf("-");
-if(optionsArgvStart < 0){
+for(let i=parser.optind();i<process.argv.length;i++)
+    ss.push(process.argv[i]);
+if(ss.length <= 0){
     console.error("usage: svc -xukdits ss");
     process.exit(1);
 }
-//["-xukdits", ...s]
-const argvNecessary = unifiedArgv.slice(optionsArgvStart).split(/ +/g);
-const xukdits = argvNecessary.shift();
-if(!xukdits || xukdits.length <= 1){
-    console.error("usage: svc -xukdits ss");
-    process.exit(1);
-}
-xukdits.slice(1).split("").forEach(xukditsOption => {
-    if(!("xukdits".split("").includes(xukditsOption))){
-        console.error("usage: svc -xukdits ss");
-        process.exit(1);
-    }
-    options += xukditsOption;
-});
-// plural of s
-const ss = argvNecessary;
+
 ss.forEach(s => {
-    if(s[0] !== "/"){
+    if(!common.checkServiceArgDir(s)){
         s = path.join(common.DEFAULT_SERVICE_PATH, s);
     }
     const s_stat = fs.statSync(s, { throwIfNoEntry: false });
@@ -45,5 +34,5 @@ ss.forEach(s => {
         console.error("control does not exist or is not a file (is the supervise down?)");
         process.exit(1);
     }
-    fs.appendFileSync("control", options);
+    fs.appendFileSync("control", commands);
 });

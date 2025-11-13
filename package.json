@@ -21,5 +21,8 @@
   },
   "scripts": {
     "build": "tsc"
+  },
+  "dependencies": {
+    "posix-getopt": "^1.2.1"
   }
 }

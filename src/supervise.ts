@@ -10,13 +10,13 @@ if(process.argv[0].includes("node")){
 }
 // plural of s
 // .join(" ").split(/ +/) DOES NOT cancel out I swear
-const ss = process.argv.slice(skipIndex).join(" ").split(/ +/g).filter(s => s.length > 0);
+const ss = process.argv.slice(skipIndex).join(" ").split(" ").filter(s => s.length > 0);
 let s = ss[0];
 if(!s){
     console.error("usage: supervise s");
     process.exit(1);
 }
-if(s[0] !== "/"){
+if(!common.checkServiceArgDir(s)){
     s = path.join(common.DEFAULT_SERVICE_PATH, s);
 }
 
@@ -49,7 +49,7 @@ const controlWatch = fs.watchFile("control", () => {
         processCommand(command);
 });
 let daemon: child_process.ChildProcess | undefined;
-if(!fs.existsSync(path.join(s, "down"))){
+if(!fs.existsSync("down")){
     auto_start = true;
     startDaemon();
     updateStatus();
@@ -78,7 +78,7 @@ function startDaemon(){
     if(!isDown())
         return;
     startTime = performance.now();
-    daemon = child_process.spawn(path.join(s, "run"), {
+    daemon = child_process.spawn("./run", {
         stdio: "inherit",
         windowsHide: true
     });
