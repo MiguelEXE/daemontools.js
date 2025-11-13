@@ -1,2 +1,4 @@
 src/
 services/
+check_env.sh
+test_env/
