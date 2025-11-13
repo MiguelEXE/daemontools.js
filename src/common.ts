@@ -1,5 +1,7 @@
 import * as fs from "fs";
 
+// time to take to restart the service, if wants = up
+export const DEFAULT_RESTART_TIME = 2000;
 // for testing purpouses, change that later
 export const DEFAULT_SERVICE_PATH = "/home/miguel/daemontools.js/services";
 // extracted directly from kill -l: false, thats extracted from @types/node (also MIT license)

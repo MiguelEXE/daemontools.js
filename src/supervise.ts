@@ -87,7 +87,7 @@ function startDaemon(){
         if(exiting)
             return;
         updateStatus();
-        await _wait(2000);
+        await _wait(common.DEFAULT_RESTART_TIME);
         if(exiting)
             return;
         if(auto_start){
