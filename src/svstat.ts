@@ -22,7 +22,7 @@ if(process.argv[0].includes("node")){
 }
 // plural of s
 // .join(" ").split(" ") DOES NOT cancel out I swear
-const ss = process.argv.slice(skipIndex).join(" ").split(" ").filter(s => s.length > 0);
+const ss = process.argv.slice(skipIndex);
 if(ss.length <= 0){
     console.error("usage: svstat ss");
     process.exit(1);
