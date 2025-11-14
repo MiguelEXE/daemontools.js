@@ -10,14 +10,3 @@ export const SIGNALS = "SIGABRT SIGALRM SIGBUS SIGCHLD SIGCONT SIGFPE SIGHUP SIG
 // unix specifics (permission)
 export const DEFAULT_CONTROL_MODE = 0o600;
 export const DEFAULT_STATUS_MODE = 0o644;
-
-export function checkServiceArgDir(s: string){
-    // separate into different statements,
-    // mostly because you don't wanna
-    // merge string operations and file system
-    // operations, even on basic conditions like
-    // this, that becomes bad code
-    if(s.includes("/") || s.includes("."))
-        return true;
-    return fs.existsSync(s);
-}

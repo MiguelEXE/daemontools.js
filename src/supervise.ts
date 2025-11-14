@@ -13,7 +13,7 @@ if(!s){
     console.error("usage: supervise s");
     process.exit(1);
 }
-if(!common.checkServiceArgDir(s)){
+if(!fs.existsSync(s)){
     s = path.join(common.DEFAULT_SERVICE_PATH, s);
 }
 

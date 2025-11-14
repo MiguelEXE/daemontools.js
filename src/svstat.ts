@@ -29,7 +29,7 @@ if(ss.length <= 0){
 }
 
 ss.forEach(s => {
-    if(!common.checkServiceArgDir(s)){
+    if(!fs.existsSync(s)){
         s = path.join(common.DEFAULT_SERVICE_PATH, s);
     }
     const s_stat = fs.statSync(s, { throwIfNoEntry: false });

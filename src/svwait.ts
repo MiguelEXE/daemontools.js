@@ -28,7 +28,7 @@ if(ss.length <= 0){
 
 (async function (){
     for (let s of ss){
-        if(!common.checkServiceArgDir(s)){
+        if(!fs.existsSync(s)){
             s = path.join(common.DEFAULT_SERVICE_PATH, s);
         }
         const s_stat = fs.statSync(s, { throwIfNoEntry: false });
