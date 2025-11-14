@@ -24,6 +24,7 @@ if(s_stat === undefined || !s_stat.isDirectory()){
 }
 
 let startTime = 0;
+let interval = 0;
 // AKA wants
 let auto_start = false;
 let exiting = false;
@@ -60,7 +61,7 @@ function isDown(){
 }
 function updateStatus(){
     if(isDown()){
-        fs.writeFileSync("status", `down ${performance.now() - startTime} -1 ${auto_start ? "up" : "down"}`, {
+        fs.writeFileSync("status", `down ${interval} -1 ${auto_start ? "up" : "down"}`, {
             mode: common.DEFAULT_STATUS_MODE
         });
         return;
@@ -78,6 +79,7 @@ function startDaemon(){
         windowsHide: true
     });
     async function handler(){
+        interval = performance.now() - startTime;
         daemon?.removeAllListeners();
         if(exiting)
             return;
