@@ -1,6 +1,7 @@
 {
   "name": "daemontools.js",
   "version": "2.0.0",
+  "main": "dist/api.js",
   "license": "MIT",
   "bin": {
     "envdir": "dist/envdir.js",
