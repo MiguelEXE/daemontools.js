@@ -1,8 +1,4 @@
 #!/bin/bash
 
-echo testService2
-echo hi
-sleep 8
-echo bye
-sleep 1
-exit 0
+echo testService2 PID: $$
+sleep infinity
